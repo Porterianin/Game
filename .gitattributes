@@ -1,5 +1,0 @@
-game/images/* filter=lfs diff=lfs merge=lfs -text
-game/audio/* filter=lfs diff=lfs merge=lfs -text
-game/images/.gitkeep -filter -diff -merge text
-game/audio/.gitkeep -filter -diff -merge text
-*.exe filter=lfs diff=lfs merge=lfs -text
