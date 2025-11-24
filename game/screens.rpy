@@ -141,7 +141,7 @@ screen achievements_overlay():
 
 style hud_frame:
     background Solid("#ffffffcc")
-    padding 8
+    padding (8, 8, 8, 8)
 
 style hud_text:
     color "#2a1b28"
