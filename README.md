@@ -13,15 +13,5 @@
 
 ## Проверка запуска локально
 1. Скачайте и распакуйте Ren'Py (например, в `~/renpy`).
-2. Укажите путь к каталогу с `renpy.sh` через переменную `RENPY_HOME` и запустите проверку:
-   ```bash
-   RENPY_HOME=~/renpy ./scripts/run-local.sh lint
-   ```
-   Если нужно сразу открыть игру, используйте:
-   ```bash
-   RENPY_HOME=~/renpy ./scripts/run-local.sh launch
-   ```
-   Для последовательной проверки и запуска:
-   ```bash
-   RENPY_HOME=~/renpy ./scripts/run-local.sh both
-   ```
+2. В лаунчере выберите каталог проекта и нажмите **Launch Project** или **Lint** для проверки.
+3. Если готовите CG, ориентируйтесь на подсказки в `game/script.rpy`: там указаны названия промптов и ожидаемые пути файлов вида `images/episode1/<prompt>.png`.

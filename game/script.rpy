@@ -3,6 +3,27 @@
 # Определяем героиню и базовые переменные.
 define n = Character("Настя", color="#c26aa5")
 
+# Маппинг CG: ключи совпадают с названием промпта, значения — ожидаемые файлы изображений.
+init python:
+    CG_MAP = {
+        "countryside_departure": "images/episode1/countryside_departure.png",
+        "nastya_departure_outfit": "images/episode1/nastya_departure_outfit.png",
+        "bio_background": "images/episode1/bio_background.png",
+        "wind_lifts_skirt": "images/episode1/wind_lifts_skirt.png",
+        "bus_window_embarrassed": "images/episode1/bus_window_embarrassed.png",
+    }
+
+    def cg_background(key, fallback_color="#000"):
+        """Возвращает путь к CG, если файл существует, иначе однотонную заливку.
+
+        key — название промпта (совпадает с ТЗ), fallback_color — цвет заливки.
+        """
+
+        path = CG_MAP.get(key)
+        if path and renpy.loadable(path):
+            return path
+        return Solid(fallback_color)
+
 # Характеристики и описания героя.
 default player_attributes = {
     "интеллект": 4,
@@ -159,30 +180,36 @@ label location_loop:
 
 label prologue:
     $ current_location = "Деревня"
-    scene expression Solid("#dbe4d0")
+
+    # CG: countryside_departure -> images/episode1/countryside_departure.png
+    scene expression cg_background("countryside_departure", "#dbe4d0")
     with fade
 
     n "Настя стояла у поворота на трассу, где старенький автобус вот-вот должен был появиться за горизонтом."
     n "За спиной осталась родная деревня: лес, шум реки и деревянный дом на окраине. Впереди — новый, взрослый, немного страшный мир."
 
-    scene expression Solid("#f3ede7")
+    # CG: nastya_departure_outfit -> images/episode1/nastya_departure_outfit.png
+    scene expression cg_background("nastya_departure_outfit", "#f3ede7")
     with dissolve
     n "На Насте было легкое белое платье с мелким розовым узором в сердечки, тонкие бретельки и подол чуть ниже бедра."
     n "На ногах — старенькие белые босоножки. В руке — красный чемодан, в котором всё её имущество: одежда, телефон, документы, блокнотик."
 
-    scene expression Solid("#efeae1")
+    # CG: bio_background -> images/episode1/bio_background.png
+    scene expression cg_background("bio_background", "#efeae1")
     with dissolve
     n "Девочка из тихой деревни, Настя всегда была примерной. Детсад, школа — отличница."
     n "Отец ушел, когда ей было три. Мама — строгая, но любящая — воспитывала одну. В доме у леса всегда пахло пирогами и мятой."
     n "Но Насте этого стало мало. Она мечтала — вырваться, сбежать, стать взрослой."
 
-    scene expression Solid("#f7f1e8")
+    # CG: wind_lifts_skirt -> images/episode1/wind_lifts_skirt.png
+    scene expression cg_background("wind_lifts_skirt", "#f7f1e8")
     with dissolve
     n "Автобус остановился с глухим шипением. Ветер с дороги резко вздул платье Насте вверх — высоко, почти до талии."
     n "Белые трусики мелькнули перед глазами водителя и двух пассажиров, стоявших у двери."
     n "Настя в ужасе вцепилась в подол, покраснела и юркнула в салон."
 
-    scene expression Solid("#e7edf4")
+    # CG: bus_window_embarrassed -> images/episode1/bus_window_embarrassed.png
+    scene expression cg_background("bus_window_embarrassed", "#e7edf4")
     with dissolve
     n "Она устроилась у окна, уткнулась в стекло и глубоко вздохнула. Щёки горели, сердце колотилось."
     n "Первый день — и уже позор. А впереди — целая новая жизнь. И кто знает, сколько ещё таких ситуаций её ждёт..."
