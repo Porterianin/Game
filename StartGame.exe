@@ -1,1 +1,3 @@
-Эта заглушка-лаунчер для проекта. Полноценный EXE собирается через Ren'Py SDK (Сборка > Windows). Пока запускать проект можно командой Ren'Py или renpy.sh из каталога SDK, указав путь к этой папке.
+version https://git-lfs.github.com/spec/v1
+oid sha256:05cb4226a6715b59cdd0594e34a72c4ad26203aa73fa8adacf25d8184c677655
+size 323
