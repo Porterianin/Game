@@ -10,9 +10,12 @@ screen hud():
         align (0.02, 0.02)
         has vbox
         text "Локация: [current_location]" size 18
-        text "Энергия: [player_stats['энергия']]" size 16
-        text "Репутация: [player_stats['репутация']]" size 16
-        text "Деньги: [player_stats['деньги']] ₽" size 16
+        text "Энергия: [player_state['энергия']]" size 16
+        text "Возбуждение: [player_state['возбужденность']]" size 16
+        text "Сытость: [player_state['сытость']]" size 16
+        text "Чистота: [player_state['чистота']]" size 16
+        text "Репутация: [player_state['репутация']]" size 16
+        text "Деньги: [player_state['деньги']] ₽" size 16
 
 screen location_overlay(current_location):
     tag menu
@@ -26,6 +29,7 @@ screen location_overlay(current_location):
         textbutton "Карта города" action Return("map")
         textbutton "Отдохнуть" action Return("rest")
         textbutton "Достижения" action Return("achievements")
+        textbutton "Статус" action Return("profile")
         textbutton "Выход" action Return("exit")
 
     frame:
@@ -35,6 +39,56 @@ screen location_overlay(current_location):
         text "Связи" size 18
         for person, value in relationships.items():
             text "[person]: [value]" size 16
+
+screen character_sheet():
+    tag menu
+    modal True
+    add Solid("#2228")
+    frame:
+        align (0.5, 0.5)
+        xsize 760
+        ysize 520
+        has vbox
+        spacing 8
+        text "Профиль Насти" size 26 xalign 0.5
+        text player_profile["описание"] size 16
+        null height 6
+        hbox:
+            spacing 20
+            vbox:
+                text "Характеристики" size 20
+                for key, value in player_attributes.items():
+                    text "[key.capitalize()]: [value]" size 16
+                null height 8
+                text "Состояния" size 20
+                for key, value in player_state.items():
+                    text "[key.capitalize()]: [value]" size 16
+            vbox:
+                text "Одежда" size 20
+                text "[player_profile['текущее_одежда']['название']]" size 16
+                text player_profile['текущее_одежда']['описание'] size 14
+                if player_profile['текущее_одежда']['эффекты']:
+                    text "Эффекты:" size 14
+                    for key, value in player_profile['текущее_одежда']['эффекты'].items():
+                        text "• [key.capitalize()]: [value]" size 14
+                null height 8
+                text "Инвентарь" size 20
+                if player_profile['инвентарь']:
+                    for item in player_profile['инвентарь']:
+                        text "- [item['название']]: [item['эффект']]" size 14
+                else:
+                    text "Рюкзак пуст." size 14
+        null height 6
+        hbox:
+            spacing 20
+            vbox:
+                text "Прическа" size 20
+                text player_profile['прическа'] size 14
+            vbox:
+                text "Описание тела" size 20
+                for key, value in player_profile['тело'].items():
+                    text "[key.capitalize()]: [value]" size 14
+        textbutton "Закрыть" action Return(None) xalign 0.5
 
 screen city_map(current_location):
     tag menu
